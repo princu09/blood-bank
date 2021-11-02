@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Blood Bank - NFG</title>
+
+        <link rel="shortcut icon" href="{% static '' %}" type="image/x-icon">
+
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+        <!-- jQuery File -->
+        <script src="{% static 'jquery-3.5.1.min.js' %}"></script>
+
+        <!-- custom css -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{% static 'font-awesome/css/all.css' %}">
+
+        <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand font-weight-bold" href="#">Blood Bank</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% if user.get_username == "admin" %}
+                    <li class="nav-item {% if "home" in request.path %} active{% endif %}">
+                        <a class="nav-link" href="/home">Dashboard</a>
+                    </li>
+                    <li class="nav-item {% if "addBlood" in request.path %} active{% endif %}">
+                        <a class="nav-link" href="/addBlood">Add Blood</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item {% if "home" in request.path %} active{% endif %}">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="contact d-flex justify-content-center align-items-center">
+                <p class="m-0">{{user.email}}</p>
+                <a class="nav-link text-danger" href="/logout">Logout</a>
+            </div>
+            {% endif %}
+        </nav>
+
+        {% block body %}
+
+        {% endblock body %}
+
+        <!-- Boostrap JS -->
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+        <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    </body>
+
+</html>

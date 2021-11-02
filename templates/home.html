@@ -1,0 +1,137 @@
+{% extends 'basic.html' %}
+
+{% block body %}
+<div class="container mt-5 text-center d-flex flex-column align-items-center">
+    <div class="card col-md-3 mb-5">
+        <div class="card-body font-weight-bold h4">
+            <p class="m-0">
+                Total Donors : <span class="text-danger">{{x}}</span>
+            </p>
+        </div>
+    </div>
+    <div class="row col-md-12">
+        <div class="col-md-3 my-2">
+            <div class="card bg-danger text-white">
+                <div class="card-header font-weight-bold">
+                    A+
+                </div>
+                <div class="card-body">
+                    <span>{{a}}</span> Donors
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 my-2">
+            <div class="card bg-primary text-white">
+                <div class="card-header font-weight-bold">
+                    A-
+                </div>
+                <div class="card-body">
+                    <span>{{a2}}</span> Donors
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3 my-2">
+            <div class="card bg-secondary text-white">
+                <div class="card-header font-weight-bold">
+                    B+
+                </div>
+                <div class="card-body">
+                    <span>{{b}}</span> Donors
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 my-2">
+            <div class="card bg-success text-white">
+                <div class="card-header font-weight-bold">
+                    B-
+                </div>
+                <div class="card-body">
+                    <span>{{b2}}</span> Donors
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 my-2">
+            <div class="card bg-warning text-white">
+                <div class="card-header font-weight-bold">
+                    AB+
+                </div>
+                <div class="card-body">
+                    <span>{{ab}}</span> Donors
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 my-2">
+            <div class="card bg-dark text-white">
+                <div class="card-header font-weight-bold">
+                    AB-
+                </div>
+                <div class="card-body">
+                    <span>{{ab2}}</span> Donors
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 my-2">
+            <div class="card bg-info text-white">
+                <div class="card-header font-weight-bold">
+                    O+
+                </div>
+                <div class="card-body">
+                    <span>{{o}}</span> Donors
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 my-2">
+            <div class="card">
+                <div class="card-header font-weight-bold">
+                    O-
+                </div>
+                <div class="card-body">
+                    <span>{{o2}}</span> Donors
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <table id="donor_list" class="display">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Blood Group</th>
+                <th>Gender</th>
+                <th>QTY</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                {% if user.get_username == "admin" %}
+                <th>Delete</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in y %}
+            <tr>
+                <td>{{i.name}}</td>
+                <td>{{i.blood_group}}</td>
+                <td>{{i.gender}}</td>
+                <td>{{i.qty}}</td>
+                <td>{{i.email}}</td>
+                <td>{{i.mobile}}</td>
+                {% if user.get_username == "admin" %}
+                <td><a href="delDonor/{{i.id}}" class="btn btn-danger">Delete</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#donor_list').DataTable();
+    });
+</script>
+{% endblock body %}
